@@ -1,0 +1,156 @@
+﻿{
+  // root.order 可以控制这个专题在首页与目录中的排序。
+  'root': {
+    'slug': 'struct-family',
+    'order': 20,
+    'name': 'struct',
+    'title': 'struct',
+    'core_meaning': '建造，堆叠，组织',
+    'origin': '来自拉丁语 struere，表示“建造、安排、堆起”。因此这一组单词常和结构、建设、破坏或重建有关。',
+    'overview': 'struct 这组词很适合按“搭起来”的画面来理解。加上不同前缀后，会变成建造、构成、破坏、重建等不同方向。',
+    'notes': ['常见变体：struct, stru', '和 structure、construct、destruction 等词联系很紧密'],
+  },
+  'page': {
+    'title': '词根 struct 词族',
+    'description': '围绕“建造、组织”展开的一组常见词。',
+  },
+  'words': [
+    {
+      'word': 'construct',
+      'pronunciations': {
+        'uk': {
+          'ipa': '/kənˈstrʌkt/',
+          'audio_url': '',
+        },
+        'us': {
+          'ipa': '/kənˈstrʌkt/',
+          'audio_url': '',
+        },
+      },
+      'translations': [
+        {
+          'part_of_speech': 'v.',
+          'meaning': '建造；构建；组成',
+        },
+      ],
+      'levels': ['CET-4', 'IELTS'],
+      'analysis': {
+        'breakdown': 'con-（共同） + struct（建造）',
+        'note': '把东西一起搭起来，所以是建造、构建。',
+      },
+      'examples': [
+        {
+          'en': 'The bridge was constructed in just two years.',
+          'zh': '这座桥仅用了两年就建成了。',
+        },
+      ],
+    },
+    {
+      'word': 'structure',
+      'pronunciations': {
+        'uk': {
+          'ipa': '/ˈstrʌktʃə(r)/',
+          'audio_url': '',
+        },
+        'us': {
+          'ipa': '/ˈstrʌktʃər/',
+          'audio_url': '',
+        },
+      },
+      'translations': [
+        {
+          'part_of_speech': 'n.',
+          'meaning': '结构；构造；建筑物',
+        },
+        {
+          'part_of_speech': 'v.',
+          'meaning': '组织；安排',
+        },
+      ],
+      'levels': ['CET-4', 'BEC'],
+      'analysis': {
+        'breakdown': 'struct（建造） + -ure（结果名词后缀）',
+        'note': '搭建完成后的样子，就是结构。',
+      },
+      'memory_tip': 'structure 可以想成“搭起来后的框架”。',
+      'examples': [
+        {
+          'en': 'A clear structure makes the essay easier to follow.',
+          'zh': '清晰的结构会让文章更容易理解。',
+        },
+      ],
+    },
+    {
+      'word': 'destruction',
+      'pronunciations': {
+        'uk': {
+          'ipa': '/dɪˈstrʌkʃ(ə)n/',
+          'audio_url': '',
+        },
+        'us': {
+          'ipa': '/dɪˈstrʌkʃən/',
+          'audio_url': '',
+        },
+      },
+      'translations': [
+        {
+          'part_of_speech': 'n.',
+          'meaning': '破坏；毁灭',
+        },
+      ],
+      'levels': ['CET-6', 'IELTS'],
+      'analysis': {
+        'breakdown': 'de-（向下、去掉） + struct（建造）',
+        'note': '把搭好的东西拆掉，于是变成破坏、毁灭。',
+      },
+      'examples': [
+        {
+          'en': 'War brings enormous destruction.',
+          'zh': '战争带来巨大的破坏。',
+        },
+      ],
+    },
+    {
+      'word': 'infrastructure',
+      'pronunciations': {
+        'uk': {
+          'ipa': '/ˈɪnfrəˌstrʌktʃə(r)/',
+          'audio_url': '',
+        },
+        'us': {
+          'ipa': '/ˈɪnfrəˌstrʌktʃər/',
+          'audio_url': '',
+        },
+      },
+      'translations': [
+        {
+          'part_of_speech': 'n.',
+          'meaning': '基础设施',
+        },
+      ],
+      'levels': [
+        'CET-6',
+        'TEM-4',
+        'TEM-8',
+        'IELTS',
+        'TOEFL',
+        'BEC',
+        'GRE',
+        'SAT',
+        'GMAT',
+        'KAOYAN',
+      ],
+      'analysis': {
+        'breakdown': 'infra-（下部、底层） + structure（结构）',
+        'note': '支撑整体运行的底层结构，就是基础设施。',
+      },
+      'memory_tip': '城市“底层支架”就是 infrastructure。',
+      'examples': [
+        {
+          'en': 'Modern infrastructure is essential for economic growth.',
+          'zh': '现代基础设施对经济增长至关重要。',
+        },
+      ],
+    },
+  ],
+}

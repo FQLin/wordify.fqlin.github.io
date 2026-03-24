@@ -1,0 +1,160 @@
+﻿{
+  // root.order 可以控制这个专题在首页与目录中的排序。
+  'root': {
+    'slug': 'spect-family',
+    'order': 10,
+    'name': 'spect',
+    'title': 'spect / spic',
+    'core_meaning': '看，看见',
+    'origin': '来自拉丁语 specere，核心含义是“看”。它后来衍生出 inspect、respect、spectator、prospect 等一系列与观察、景象、尊重有关的单词。',
+    'overview': '当你看到 spect 或 spic 这类形式时，通常都可以先联想到“看”这个动作。不同前缀会改变“看”的方向，所以这一组词很适合放在一起背。',
+    'notes': ['常见变体：spect, spic', '搭配不同前缀后，常形成“向内看、回头看、向前看”等语义变化'],
+  },
+  'page': {
+    'title': '词根 spect 词族',
+    'description': '围绕“看”展开的一组高频词，适合按前缀变化一起记忆。',
+  },
+  'words': [
+    {
+      'word': 'inspect',
+      'pronunciations': {
+        'uk': {
+          'ipa': '/ɪnˈspekt/',
+          'audio_url': '',
+        },
+        'us': {
+          'ipa': '/ɪnˈspekt/',
+          'audio_url': '',
+        },
+      },
+      'translations': [
+        {
+          'part_of_speech': 'v.',
+          'meaning': '检查；视察',
+        },
+      ],
+      'levels': ['CET-4', 'IELTS'],
+      'analysis': {
+        'breakdown': 'in-（向内） + spect（看）',
+        'note': '字面感觉是“往里面看”，所以引申为检查、审视。',
+      },
+      'memory_tip': '检查东西时，往细处、往里面看。',
+      'examples': [
+        {
+          'en': 'Inspect the equipment before use.',
+          'zh': '使用前检查设备。',
+        },
+      ],
+    },
+    {
+      'word': 'respect',
+      'pronunciations': {
+        'uk': {
+          'ipa': '/rɪˈspekt/',
+          'audio_url': '',
+        },
+        'us': {
+          'ipa': '/rɪˈspekt/',
+          'audio_url': '',
+        },
+      },
+      'translations': [
+        {
+          'part_of_speech': 'n.',
+          'meaning': '尊重；敬意；方面',
+        },
+        {
+          'part_of_speech': 'v.',
+          'meaning': '尊重；遵守',
+        },
+      ],
+      'levels': ['CET-4', 'BEC'],
+      'analysis': {
+        'breakdown': 're-（回头、再次） + spect（看）',
+        'note': '可以理解成“反复看重某人”，于是引申出尊重、敬重。',
+      },
+      'examples': [
+        {
+          'en': 'We respect different opinions.',
+          'zh': '我们尊重不同的观点。',
+        },
+      ],
+    },
+    {
+      'word': 'spectator',
+      'pronunciations': {
+        'uk': {
+          'ipa': '/spekˈteɪtə(r)/',
+          'audio_url': '',
+        },
+        'us': {
+          'ipa': '/ˈspekˌteɪtər/',
+          'audio_url': '',
+        },
+      },
+      'translations': [
+        {
+          'part_of_speech': 'n.',
+          'meaning': '观众；旁观者',
+        },
+      ],
+      'levels': ['CET-6', 'IELTS'],
+      'analysis': {
+        'breakdown': 'spect（看） + -ator（执行者）',
+        'note': '本质上就是“看的人”。',
+      },
+      'examples': [
+        {
+          'en': 'The stadium was filled with excited spectators.',
+          'zh': '体育场里坐满了兴奋的观众。',
+        },
+      ],
+    },
+    {
+      'word': 'prospect',
+      'pronunciations': {
+        'uk': {
+          'ipa': '/ˈprɒspekt/',
+          'audio_url': '',
+        },
+        'us': {
+          'ipa': '/ˈprɑːspekt/',
+          'audio_url': '',
+        },
+      },
+      'translations': [
+        {
+          'part_of_speech': 'n.',
+          'meaning': '前景；可能性；景象',
+        },
+        {
+          'part_of_speech': 'v.',
+          'meaning': '勘探；寻找',
+        },
+      ],
+      'levels': [
+        'CET-6',
+        'TEM-4',
+        'TEM-8',
+        'IELTS',
+        'TOEFL',
+        'BEC',
+        'GRE',
+        'SAT',
+        'GMAT',
+        'KAOYAN',
+      ],
+      'analysis': {
+        'breakdown': 'pro-（向前） + spect（看）',
+        'note': '向前看时看到的，往往就是未来的前景、希望或机会。',
+      },
+      'memory_tip': 'prospect 可以想成“往前看见的画面”，所以常表示前景。',
+      'examples': [
+        {
+          'en': 'The company has good growth prospects.',
+          'zh': '这家公司有良好的增长前景。',
+        },
+      ],
+    },
+  ],
+}

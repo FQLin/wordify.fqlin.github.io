@@ -1,0 +1,47 @@
+﻿{
+  // 站点基础配置。这里支持 // 和 /* */ 注释，构建时会自动忽略。
+  'site': {
+    'name': 'Wordify',
+    // 站点名称，会出现在首页标题和浏览器标题中。
+    'title': 'Wordify 词根词汇平台',
+    // 正式部署地址，用于 canonical、Open Graph、sitemap 等 SEO 数据。
+    'baseUrl': 'https://wordify.fanqinglin.com',
+    // 自定义域名会输出到 dist/CNAME，适合部署到 GitHub Pages 自定义域名站点。
+    'cname': 'wordify.fanqinglin.com',
+    // 项目仓库地址，主要用于 README 和项目元数据维护。
+    'repoUrl': 'https://github.com/FQLin/wordify.fqlin.github.io',
+    // 构建后的默认主题；名称需要和 src/assets/themes 下的 CSS 文件名一致。
+    'defaultTheme': 'sand',
+    // 首页和专题页共用的站点描述。
+    'description': '以词根为线索系统整理英语词汇，提供音标、释义、等级、构词分析与例句，帮助在浏览中完成记忆与复习。',
+    // 基础关键词会自动合并到首页和各个专题页的 SEO 关键词里。
+    'keywords': ['英语词根', '英语单词', '词根词缀', '背单词', '英语学习', '词汇整理'],
+    // 页面底部的数据来源说明；如果没有链接，url 保持空字符串即可。
+    'sources': [
+      { 'label': '等级信息', 'name': '有道词典', 'url': 'https://www.youdao.com/' },
+      { 'label': '音标与释义', 'name': '有道词典', 'url': 'https://www.youdao.com/' },
+      { 'label': '读音音频', 'name': '远程音频接口', 'url': '' },
+      { 'label': '词根分析', 'name': '站点维护者整理', 'url': '' },
+    ],
+    // 页脚补充说明。
+    'footerNote': '页面展示的数据来源会随词条整理逐步补充，若与你自定义的资料来源不同，请以你维护的 JSON 数据为准。',
+  },
+  'themes': {
+    // 主题键名就是主题名称，同时要对应 src/assets/themes/<name>.css。
+    'sand': {
+      'label': '纸页',
+      'themeColor': '#f4efe4',
+      'swatch': 'linear-gradient(135deg, #f7eedb, #b66a28)',
+    },
+    'forest': {
+      'label': '松绿',
+      'themeColor': '#e5efe7',
+      'swatch': 'linear-gradient(135deg, #e5efe7, #3f6b4b)',
+    },
+    'coast': {
+      'label': '海雾',
+      'themeColor': '#e8f1f5',
+      'swatch': 'linear-gradient(135deg, #e8f1f5, #46758d)',
+    },
+  },
+}

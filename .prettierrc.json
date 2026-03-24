@@ -1,0 +1,14 @@
+{
+  "printWidth": 100,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "overrides": [
+    {
+      "files": ["site.config.json", "data/*.json"],
+      "options": {
+        "parser": "json5",
+        "quoteProps": "preserve"
+      }
+    }
+  ]
+}

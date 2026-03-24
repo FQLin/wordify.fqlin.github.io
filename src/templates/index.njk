@@ -1,0 +1,49 @@
+﻿<main class="page-shell" id="page-top">
+  <header class="site-topbar">
+    <span class="brand-mark">{{ siteName }}</span>
+    <div class="topbar-tools">
+      {{ themeSwitcher }}
+      <span class="site-label">{{ siteKicker }}</span>
+    </div>
+  </header>
+
+  <section class="hero-card hero-card-home">
+    <div class="hero-badge">{{ siteKicker }}</div>
+    <h1>{{ siteHeadline }}</h1>
+    <p class="hero-subtitle">{{ siteSubtitle }}</p>
+    <div class="hero-meta-grid">
+      {% for item in heroStats %}
+      <div class="hero-meta-item">
+        <span>{{ item.label }}</span>
+        <strong>{{ item.value }}</strong>
+        {% if item.note %}
+        <p class="hero-meta-note">{{ item.note }}</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="home-overview-grid">
+    {% for card in overviewCards %}
+    <article class="info-card compact-card">
+      <p class="section-kicker">{{ card.kicker }}</p>
+      <h2 class="card-title">{{ card.title }}</h2>
+      {{ card.body }}
+    </article>
+    {% endfor %}
+  </section>
+
+  <section class="home-section" id="family-section">
+    <div class="section-heading">
+      <p class="section-kicker">{{ familySectionKicker }}</p>
+      <h2 class="section-title-xl">{{ familySectionTitle }}</h2>
+      <p class="section-description">{{ familySectionDescription }}</p>
+    </div>
+    <div class="family-grid" id="topic-list">
+      {{ familyCards }}
+    </div>
+  </section>
+</main>
+
+{{ floatingNav }}

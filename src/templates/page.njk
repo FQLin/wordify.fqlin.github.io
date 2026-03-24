@@ -1,0 +1,58 @@
+﻿<main class="page-shell" id="page-top">
+  <header class="site-topbar">
+    <a class="brand-mark" href="./index.html">{{ siteName }}</a>
+    <div class="topbar-tools">
+      {{ themeSwitcher }}
+      <nav class="breadcrumb" aria-label="面包屑导航">
+        <a href="./index.html">{{ breadcrumbHome }}</a>
+        <span>/</span>
+        <span aria-current="page">{{ pageTitle }}</span>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero-card hero-card-root">
+    <div class="hero-badge">{{ rootSeries }}</div>
+    <h1>{{ pageTitle }}</h1>
+    <p class="hero-subtitle">{{ pageSubtitle }}</p>
+    <div class="hero-rootline">
+      <span class="root-pill">{{ rootTitle }}</span>
+    </div>
+    <div class="hero-meta-grid">
+      {{ rootMeta }}
+    </div>
+  </section>
+
+  <section class="content-stack">
+    {{ introSections }}
+    <section class="filter-panel js-word-page">
+      <div class="filter-head">
+        <div>
+          <h2 class="card-title">{{ familyWords }}</h2>
+          <p class="card-subtitle result-line" aria-live="polite">{{ resultText }}</p>
+        </div>
+      </div>
+      <div class="filter-toolbar">
+        <label class="search-box">
+          <span>{{ searchLabel }}</span>
+          <div class="search-input-shell">
+            <input class="word-search" type="search" placeholder="{{ searchPlaceholder }}" autocomplete="off" spellcheck="false">
+            <button class="search-clear" type="button" hidden aria-label="{{ clearSearchLabel }}">{{ clearSearchText }}</button>
+          </div>
+        </label>
+        <div class="filter-row">
+          {{ filterButtons }}
+        </div>
+      </div>
+      <div class="word-grid" id="word-list">
+        {{ wordCards }}
+      </div>
+      <div class="empty-state" hidden>
+        <p>{{ emptyState }}</p>
+      </div>
+    </section>
+    {{ pageNavigator }}
+  </section>
+</main>
+
+{{ floatingNav }}

@@ -1,0 +1,16 @@
+:root {
+  --bg: #e6efe8;
+  --bg-soft: #dbe8de;
+  --paper: rgba(247, 252, 248, 0.92);
+  --paper-strong: #f8fdf9;
+  --paper-deep: #e6f0e8;
+  --ink: #20322a;
+  --muted: #667b6f;
+  --line: rgba(32, 50, 42, 0.12);
+  --shadow: 0 24px 60px rgba(37, 74, 49, 0.12);
+  --shadow-soft: 0 16px 34px rgba(37, 74, 49, 0.08);
+  --accent: #4f8a5d;
+  --accent-deep: #2e5c38;
+  --green: #335d42;
+  --green-soft: #d8eadc;
+}

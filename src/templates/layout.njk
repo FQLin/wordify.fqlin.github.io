@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="{{ language }}" data-default-theme="{{ defaultTheme }}" data-theme="{{ defaultTheme }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ fullTitle }}</title>
+  <meta name="description" content="{{ description }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <meta name="theme-color" content="{{ themeColor }}">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="canonical" href="{{ canonicalUrl }}">
+  <link rel="alternate" hreflang="zh-CN" href="{{ canonicalUrl }}">
+  <meta property="og:locale" content="{{ locale }}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ siteTitle }}">
+  <meta property="og:title" content="{{ fullTitle }}">
+  <meta property="og:description" content="{{ description }}">
+  <meta property="og:url" content="{{ canonicalUrl }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ fullTitle }}">
+  <meta name="twitter:description" content="{{ description }}">
+  <link rel="stylesheet" href="./assets/base.css">
+  <link rel="stylesheet" href="{{ defaultThemeHref }}" id="theme-stylesheet">
+  {{ structuredData }}
+</head>
+<body class="{{ bodyClass }}">
+  {{ body }}
+  {{ siteFooter }}
+  <script src="./assets/app.js" defer></script>
+</body>
+</html>

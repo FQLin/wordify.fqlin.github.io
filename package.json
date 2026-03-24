@@ -1,0 +1,28 @@
+{
+  "name": "wordify",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "homepage": "https://wordify.fanqinglin.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FQLin/wordify.fqlin.github.io.git"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:release": "node scripts/build.mjs --release",
+    "format": "prettier --write package.json package-lock.json README.md site.config.json .prettierrc.json scripts/build.mjs src/assets/app.js src/assets/base.css data/*.json",
+    "format:check": "prettier --check package.json package-lock.json README.md site.config.json .prettierrc.json scripts/build.mjs src/assets/app.js src/assets/base.css data/*.json"
+  },
+  "dependencies": {
+    "clean-css": "5.3.3",
+    "esbuild": "0.25.9",
+    "html-minifier-terser": "7.2.0",
+    "json5": "2.2.3",
+    "nunjucks": "3.2.4",
+    "strip-json-comments": "5.0.1"
+  },
+  "devDependencies": {
+    "prettier": "3.6.2"
+  }
+}
