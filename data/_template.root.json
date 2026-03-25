@@ -1,61 +1,61 @@
 ﻿{
-  // 每个 JSON 文件都会构建成一个独立的词根专题页面。
-  'root': {
+  // 每个数据文件都会构建成一个独立的词根专题页面。
+  "root": {
     // 输出页面文件名，最终会生成 <slug>.html。
-    'slug': 'template-root',
+    "slug": "template-root",
     // 控制首页专题排序；数字越小越靠前。
-    'order': 100,
+    "order": 100,
     // 词根本体，必填。
-    'name': 'root-name',
+    "name": "root-name",
     // 词根展示标题；如果有变体，可以写成 root / variant 的形式。
-    'title': 'root / variant',
-    'core_meaning': '填写这个词根的核心含义',
-    'origin': '填写词根来源、历史或原始含义。',
-    'overview': '填写这个词根家族的整体介绍、常见语义方向等。',
+    "title": "root / variant",
+    "core_meaning": "填写这个词根的核心含义",
+    "origin": "填写词根来源、历史或原始含义。",
+    "overview": "填写这个词根家族的整体介绍、常见语义方向等。",
     // 可选：词根页开头的补充线索，会以列表形式展示。
-    'notes': ['可选补充说明 1', '可选补充说明 2'],
+    "notes": ["可选补充说明 1", "可选补充说明 2"]
   },
-  'page': {
+  "page": {
     // 页面标题与描述会用于浏览器标题和 SEO 描述。
-    'title': '词根 root-name 词族',
-    'description': '填写这个词根页面的副标题。',
+    "title": "词根 root-name 词族",
+    "description": "填写这个词根页面的副标题。"
   },
-  'words': [
+  "words": [
     {
       // 单词本体，必填。
-      'word': 'example',
-      'pronunciations': {
-        'uk': {
+      "word": "example",
+      "pronunciations": {
+        "uk": {
           // 音标和远程音频都可以单独留空。
-          'ipa': '/ɪɡˈzɑːmpəl/',
-          'audio_url': '',
+          "ipa": "/ɪɡˈzɑːmpəl/",
+          "audio_url": ""
         },
-        'us': {
-          'ipa': '/ɪɡˈzæmpəl/',
-          'audio_url': '',
-        },
+        "us": {
+          "ipa": "/ɪɡˈzæmpəl/",
+          "audio_url": ""
+        }
       },
-      'translations': [
+      "translations": [
         {
           // 如果同一个单词有多个词性，就继续往后追加对象。
-          'part_of_speech': 'n.',
-          'meaning': '例子；范例',
-        },
+          "part_of_speech": "n.",
+          "meaning": "例子；范例"
+        }
       ],
       // 等级可以写很多个；页面上会自动显示为“前 3 个 + N”。
-      'levels': ['CET-4'],
+      "levels": ["CET-4"],
       // analysis、memory_tip、examples 都是可选字段，没有就删除。
-      'analysis': {
-        'breakdown': '根据需要填写词根或前后缀拆解',
-        'note': '根据需要填写说明',
+      "analysis": {
+        "breakdown": "根据需要填写词根或前后缀拆解",
+        "note": "根据需要填写说明"
       },
-      'memory_tip': '可选的记忆提示。',
-      'examples': [
+      "memory_tip": "可选的记忆提示。",
+      "examples": [
         {
-          'en': 'This is an example sentence.',
-          'zh': '这是一句示例句子。',
-        },
-      ],
-    },
-  ],
+          "en": "This is an example sentence.",
+          "zh": "这是一句示例句子。"
+        }
+      ]
+    }
+  ]
 }

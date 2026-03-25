@@ -151,6 +151,57 @@ if (document.body.classList.contains('page-root') && initialHashTargetId) {
   });
 }
 
+const clickableFamilyCards = Array.from(document.querySelectorAll('.family-card[data-topic-href]'));
+const cardNavigationIgnoreSelector = [
+  'a',
+  'button',
+  'input',
+  'select',
+  'textarea',
+  'summary',
+  '[role="button"]',
+].join(', ');
+
+function navigateToFamilyTopic(card) {
+  const href = card.dataset.topicHref;
+  if (!href) {
+    return;
+  }
+
+  window.location.assign(href);
+}
+
+if (clickableFamilyCards.length > 0) {
+  clickableFamilyCards.forEach((card) => {
+    card.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) {
+        return;
+      }
+
+      const interactiveTarget = target.closest(cardNavigationIgnoreSelector);
+      if (interactiveTarget && interactiveTarget !== card) {
+        return;
+      }
+
+      if (window.getSelection?.().toString()) {
+        return;
+      }
+
+      navigateToFamilyTopic(card);
+    });
+
+    card.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' && event.key !== ' ') {
+        return;
+      }
+
+      event.preventDefault();
+      navigateToFamilyTopic(card);
+    });
+  });
+}
+
 let resetFiltersToDefault = () => {};
 
 if (pageRoot) {

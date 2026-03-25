@@ -76,7 +76,7 @@ npm install
 
 项目现在已经接入 `Prettier`，用于统一 JS、CSS、Markdown、构建脚本以及带注释的 JSON 数据文件格式。
 
-为了兼容这类带注释、可保留尾逗号、可由 Prettier 按 JSON5 风格整理的配置文件，构建脚本现在直接按 JSON5 解析 `site.config.json` 和 `data/*.json`。
+为了兼容这类带注释的数据文件，项目现在约定 `site.config.json` 和 `data/*.json` 使用“JSONC 风格写法”：保留 `.json` 文件名，但内容使用双引号，并允许写注释。构建阶段继续由 JSON5 解析这些文件；同时仓库内置了 [`.vscode/settings.json`](./.vscode/settings.json)，会把这些文件在 VSCode 中按 `jsonc` 打开，避免满屏红线。
 
 常用命令：
 
@@ -96,6 +96,69 @@ npm run format:check
 
 - 你这次主要需要的是统一代码风格，`Prettier` 已经足够
 - `ESLint` 更适合后续再加“潜在错误检查、未使用变量、代码规范规则”这一层
+
+## 测试命令
+
+项目现在已经接入三层测试：
+
+- `Vitest`：测试构建逻辑与页面渲染结果
+- `Ajv`：校验 `data/*.json` 和 `site.config.json` 一类数据结构
+- `Playwright`：测试真实浏览器里的页面交互
+
+常用命令：
+
+```bash
+npm run test:unit
+```
+
+运行 `Vitest + Ajv`，适合日常快速校验。
+
+```bash
+npm run test:e2e
+```
+
+先执行构建，再运行 `Playwright` 浏览器测试。当前配置会优先使用开发电脑上已安装的 Google Chrome；如果没有检测到系统 Chrome，再回退到 Playwright 自带的 Chromium。
+
+```bash
+npm run test:e2e:chrome
+```
+
+强制使用系统 Chrome 跑 E2E。
+
+```bash
+npm run test:e2e:chromium
+```
+
+强制使用 Playwright 管理的 Chromium 跑 E2E。
+
+```bash
+npm run test
+```
+
+顺序跑完单元测试和 E2E 测试。
+
+```bash
+npm run test:install-browsers
+```
+
+只有在你明确要跑 `chromium` 项目时，才需要先安装 Playwright 的 Chromium。若直接使用系统 Chrome，这一步可以不做。
+
+```bash
+npm run test:uninstall-browsers
+```
+
+如果你已经装过 Playwright Chromium，后面又决定长期只用系统 Chrome，可以执行这条命令把 Playwright 下载的 Chromium 删除掉，减少本机额外占用。
+
+需要注意：Playwright 下载的浏览器二进制默认不在项目仓库里，而是在当前用户目录下的浏览器缓存位置，例如 Windows 常见的是 `C:\Users\<用户名>\AppData\Local\ms-playwright`。所以它影响的是开发电脑本地磁盘占用，不会让仓库里的源码或 `dist/` 产物变大。
+
+当前测试覆盖的重点包括：
+
+- 首页首屏统计是否按预期生成
+- 词根专题排序是否和首页顺序一致
+- 上一页 / 下一页导航是否正确
+- JSON 数据结构是否符合词根页面生成要求
+- 首页直达词条后，专题页目录切换是否会同步更新当前高亮词条
+- 搜索与专题翻页是否可正常工作
 
 ## 构建命令
 
@@ -251,11 +314,23 @@ npm run build:release
 
 ## JSON 中可以写注释
 
-`site.config.json` 和 `data/*.json` 都支持注释。
+`site.config.json` 和 `data/*.json` 都支持注释，但为了让 VSCode 不报错，建议按 **JSONC 风格** 来写：
+
+- 文件名仍然保持 `.json`
+- 键名和值使用双引号 `""`
+- 可以写 `//` 或 `/* */` 注释
+- 不要再使用单引号包裹键名或字符串
+
+项目已经自带了 [`.vscode/settings.json`](./.vscode/settings.json)，会把下面这些文件按 `jsonc` 打开：
+
+- `site.config.json`
+- `data/*.json`
+
+所以在当前仓库里，用 VSCode 打开这些文件时，正常情况下不会再出现整页红色报错。
 
 例如：
 
-```json
+```jsonc
 {
   // 这是单行注释
   "root": {
@@ -266,7 +341,7 @@ npm run build:release
 
 以及：
 
-```json
+```jsonc
 {
   /* 这是多行注释 */
   "page": {
@@ -275,7 +350,13 @@ npm run build:release
 }
 ```
 
-这些注释会在构建时自动被忽略。
+如果你已经打开了旧文件但 VSCode 还没立即刷新语言模式，可以：
+
+1. 关闭后重新打开这个文件。
+2. 或者重新打开整个工作区。
+3. 如果仍未生效，检查右下角语言模式是否为 `JSON with Comments`。
+
+构建脚本会继续自动忽略这些注释，所以不影响 `npm run build` 和测试。
 
 ## 首页怎么使用
 
@@ -399,27 +480,80 @@ npm run build:release
 
 ## 数据来源说明怎么配置
 
-站点底部的数据来源说明来自 [site.config.json](./site.config.json) 中的：
+如果你想手动修改“首页最底部的数据来源说明”，请直接编辑 [site.config.json](./site.config.json)。
 
-- `site.sources`
-- `site.footerNote`
+需要改的就是这两个字段：
 
-示例：
+- `site.sources`：控制数据来源列表本身
+- `site.footerNote`：控制列表下面那段补充说明文字
 
-```json
+这两个字段不只影响首页，也会同时影响各个专题页底部，因为站点页脚是共用的。
+
+### 最常见的手动修改位置
+
+在 [site.config.json](./site.config.json) 中，重点看这里：
+
+```jsonc
 {
   "site": {
     "sources": [
       { "label": "等级信息", "name": "有道词典", "url": "https://www.youdao.com/" },
       { "label": "音标与释义", "name": "有道词典", "url": "https://www.youdao.com/" },
-      { "label": "读音音频", "name": "远程音频接口", "url": "" }
+      { "label": "读音音频", "name": "远程音频接口", "url": "" },
+      { "label": "词根分析", "name": "站点维护者整理", "url": "" }
     ],
-    "footerNote": "这里写你自己的补充说明。"
+    "footerNote": "页面展示的数据来源会随词条整理逐步补充，若与你自定义的资料来源不同，请以你维护的 JSON 数据为准。"
   }
 }
 ```
 
-如果 `url` 留空，页面会只显示名称，不会生成链接。
+### `site.sources` 每个字段是什么意思
+
+`site.sources` 是一个数组，数组里每一项对应页脚中的一条来源信息。
+
+每一项有 3 个常用字段：
+
+- `label`：左侧分类名，比如“等级信息”“音标与释义”
+- `name`：右侧显示名称，比如“有道词典”“站点维护者整理”
+- `url`：可选链接；如果填了，会把 `name` 渲染成可点击链接；如果留空字符串，就只显示文字
+
+例如：
+
+```jsonc
+{ "label": "等级信息", "name": "有道词典", "url": "https://www.youdao.com/" }
+```
+
+表示页脚里会显示一条“等级信息 / 有道词典”，并且“有道词典”可以点击跳转。
+
+### 你手动更新时最常做的几件事
+
+1. 想新增一条来源：就在 `site.sources` 里继续追加一个对象。
+2. 想修改显示顺序：直接调整 `site.sources` 数组里的顺序。
+3. 想改来源名称或链接：直接改对应项的 `name` 或 `url`。
+4. 想写一段说明文字：改 `site.footerNote`。
+5. 想暂时保留来源但不让它跳转：把 `url` 改成空字符串 `""`。
+
+### 改完之后要做什么
+
+修改完 [site.config.json](./site.config.json) 后，重新执行：
+
+```bash
+npm run build
+```
+
+如果你准备直接发布，再执行：
+
+```bash
+npm run build:release
+```
+
+这样新的数据来源说明就会写进 `dist/index.html` 和各个专题页。
+
+### 补充说明
+
+- `site.sources` 的数组顺序，就是页面上的显示顺序。
+- 如果 `url` 留空，页面只显示名称，不生成链接。
+- 如果你以后只想改这块信息，不需要动 `data/*.json`，直接改 [site.config.json](./site.config.json) 就可以。
 
 ## SEO 相关说明
 

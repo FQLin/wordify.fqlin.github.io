@@ -11,8 +11,17 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "build:release": "node scripts/build.mjs --release",
-    "format": "prettier --write package.json package-lock.json README.md site.config.json .prettierrc.json scripts/build.mjs src/assets/app.js src/assets/base.css data/*.json",
-    "format:check": "prettier --check package.json package-lock.json README.md site.config.json .prettierrc.json scripts/build.mjs src/assets/app.js src/assets/base.css data/*.json"
+    "format": "prettier --write package.json package-lock.json README.md site.config.json .prettierrc.json vitest.config.mjs playwright.config.mjs scripts/*.mjs src/assets/app.js src/assets/base.css data/*.json tests/**/*.mjs",
+    "format:check": "prettier --check package.json package-lock.json README.md site.config.json .prettierrc.json vitest.config.mjs playwright.config.mjs scripts/*.mjs src/assets/app.js src/assets/base.css data/*.json tests/**/*.mjs",
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "npm run build && node scripts/run-playwright.mjs",
+    "test:e2e:headed": "npm run build && node scripts/run-playwright.mjs headed",
+    "test:e2e:chromium": "npm run build && node scripts/run-playwright.mjs chromium",
+    "test:e2e:chrome": "npm run build && node scripts/run-playwright.mjs chrome",
+    "test:install-browsers": "playwright install chromium",
+    "test:uninstall-browsers": "playwright uninstall chromium"
   },
   "dependencies": {
     "clean-css": "5.3.3",
@@ -23,6 +32,10 @@
     "strip-json-comments": "5.0.1"
   },
   "devDependencies": {
-    "prettier": "3.6.2"
+    "@playwright/test": "1.58.2",
+    "ajv": "8.18.0",
+    "jsdom": "26.1.0",
+    "prettier": "3.6.2",
+    "vitest": "3.2.4"
   }
 }

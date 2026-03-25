@@ -1,11 +1,22 @@
-﻿<article class="family-card reveal" id="family-{{ slug }}">
-  <div class="family-mark">{{ rootName }}</div>
-  <h2>{{ title }}</h2>
-  <p class="family-subtitle">{{ subtitle }}</p>
+﻿<article
+  class="family-card reveal"
+  id="family-{{ slug }}"
+  data-topic-href="./{{ slug }}.html"
+  role="link"
+  tabindex="0"
+  aria-labelledby="family-title-{{ slug }}"
+>
+  <div class="family-card-heading">
+    <div class="family-mark">{{ rootName }}</div>
+    <div class="family-headcopy">
+      <h2 id="family-title-{{ slug }}">{{ title }}</h2>
+      <p class="family-subtitle">{{ subtitle }}</p>
+    </div>
+    <a class="family-link" href="./{{ slug }}.html">{{ viewTopic }}</a>
+  </div>
   <div class="family-meta-list">{{ metaList }}</div>
   <div class="family-word-links">
     <p class="family-word-label">{{ wordLinksLabel }}</p>
     <div class="word-link-list">{{ wordLinks }}</div>
   </div>
-  <a class="family-link" href="./{{ slug }}.html">{{ viewTopic }}</a>
 </article>

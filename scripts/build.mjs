@@ -8,8 +8,8 @@
   statSync,
   writeFileSync,
 } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { transform } from 'esbuild';
 import { minify as minifyHtml } from 'html-minifier-terser';
 import CleanCSS from 'clean-css';
@@ -28,6 +28,8 @@ const UTF8_BOM = '\uFEFF';
 const RELEASE_FLAG = '--release';
 const BUILD_MODE = process.argv.includes(RELEASE_FLAG) ? 'release' : 'default';
 const IS_RELEASE = BUILD_MODE === 'release';
+const IS_DIRECT_EXECUTION =
+  !!process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url;
 const CSS_MINIFIER = new CleanCSS({ level: 1 });
 const HTML_MINIFIER_OPTIONS = {
   collapseWhitespace: true,
@@ -704,7 +706,7 @@ function renderRootNotes(notes) {
 function renderPageNavigatorLink(label, page, emptyText) {
   if (!page) {
     return [
-      '<div class="page-sibling-link page-sibling-link-empty" aria-disabled="true">',
+      '<div class="page-sibling-link-empty" aria-disabled="true">',
       `<span class="page-sibling-direction">${escapeHtml(label)}</span>`,
       `<strong class="page-sibling-title">${escapeHtml(emptyText)}</strong>`,
       `<span class="page-sibling-meta">${TEXT.pageNavigatorBoundary}</span>`,
@@ -1363,7 +1365,33 @@ async function build() {
   }
 }
 
-build().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+export {
+  BUILD_MODE,
+  CONFIG,
+  DATA_DIR,
+  DEFAULT_CONFIG,
+  DIST_DIR,
+  ROOT_DIR,
+  SITE,
+  TEXT,
+  absoluteUrl,
+  build,
+  buildHomeHeroStats,
+  buildIndexDescription,
+  formatLevelSummary,
+  getWordAnchorId,
+  loadPage,
+  readJsonFile,
+  renderIndex,
+  renderPage,
+  sortPages,
+  themeStylesheetHref,
+  uniqueLevels,
+};
+
+if (IS_DIRECT_EXECUTION) {
+  build().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  });
+}

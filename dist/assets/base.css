@@ -277,6 +277,14 @@ button {
   margin-top: 22px;
 }
 
+.page-home .hero-meta-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.page-home .hero-meta-grid .hero-meta-item:last-child {
+  grid-column: 1 / -1;
+}
+
 .hero-meta-item {
   display: grid;
   gap: 4px;
@@ -315,8 +323,9 @@ button {
 }
 
 .family-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   align-items: start;
+  gap: 10px;
 }
 
 .word-grid {
@@ -521,8 +530,7 @@ button {
   box-shadow: 0 22px 44px color-mix(in srgb, var(--accent) 16%, transparent);
 }
 
-.word-card:hover,
-.family-card:hover {
+.word-card:hover {
   transform: translateY(-4px);
 }
 
@@ -755,112 +763,208 @@ button {
 }
 
 .family-card {
-  padding: 16px;
+  display: grid;
+  gap: 10px;
+  padding: 12px 14px;
+}
+
+.page-home .family-card[role="link"] {
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.page-home .family-card[role="link"]:is(:hover, :focus-visible) {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--green) 18%, transparent);
+  box-shadow: 0 20px 38px color-mix(in srgb, var(--green) 14%, transparent);
+}
+
+.page-home .family-card[role="link"]:has(
+  a:hover,
+  a:focus-visible,
+  button:hover,
+  button:focus-visible,
+  [role="button"]:hover,
+  [role="button"]:focus-visible
+) {
+  transform: none;
+  border-color: rgba(255, 255, 255, 0.65);
+  box-shadow: var(--shadow);
+}
+
+.page-home .family-card[role="link"]:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--green) 12%, transparent),
+    0 20px 38px color-mix(in srgb, var(--green) 14%, transparent);
+}
+
+.page-home .family-card[role="link"] .family-link,
+.page-home .family-card[role="link"] .word-link-chip {
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    color 180ms ease;
+}
+
+.page-home .family-card[role="link"] .family-link:is(:hover, :focus-visible),
+.page-home .family-card[role="link"] .word-link-chip:is(:hover, :focus-visible) {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--green) 24%, transparent);
+  box-shadow: 0 12px 22px color-mix(in srgb, var(--green) 12%, transparent);
+}
+
+.page-home .family-card[role="link"] .family-link:is(:hover, :focus-visible) {
+  background: color-mix(in srgb, var(--green) 16%, white 84%);
+}
+
+.page-home .family-card[role="link"] .word-link-chip:is(:hover, :focus-visible) {
+  background: color-mix(in srgb, var(--green) 14%, white 86%);
+}
+
+.family-card::after {
+  width: 148px;
+  height: 148px;
+  opacity: 0.72;
+}
+
+.family-card-heading {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: start;
+}
+
+.family-headcopy {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
 }
 
 .family-mark {
   display: inline-flex;
   align-items: center;
-  min-height: 32px;
-  padding: 0 11px;
+  min-height: 28px;
+  padding: 0 10px;
   border-radius: var(--radius-sm);
   background: color-mix(in srgb, var(--accent) 10%, white 90%);
   color: var(--accent-deep);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.04em;
 }
 
 .family-card h2 {
-  margin: 12px 0 6px;
-  font-size: 1.28rem;
-  line-height: 1.16;
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.14;
 }
 
 .family-subtitle {
   display: -webkit-box;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.91rem;
+  line-height: 1.45;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
-  line-height: 1.55;
 }
 
 .family-meta-list {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px 10px;
-  margin: 10px 0 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  margin: 0;
 }
 
 .family-meta-list span {
-  display: grid;
-  gap: 2px;
-  padding: 8px 10px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.56);
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 5px 9px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.62);
   border: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
   color: var(--ink);
+  font-size: 0.82rem;
+  line-height: 1.3;
 }
 
 .family-meta-list strong {
   color: var(--muted);
   min-width: 0;
-  font-size: 0.76rem;
+  font-size: 0.72rem;
   font-weight: 700;
 }
 
 .family-word-links {
   display: grid;
+  grid-template-columns: auto 1fr;
   gap: 8px;
+  align-items: start;
+}
+
+.family-word-label {
+  padding-top: 5px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .word-link-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
-  gap: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .word-link-chip {
-  min-height: 0;
-  padding: 8px 10px;
+  min-height: 30px;
+  padding: 6px 8px;
   background: color-mix(in srgb, var(--green) 8%, white 92%);
   border: 1px solid color-mix(in srgb, var(--green) 14%, transparent);
   color: var(--green);
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-start;
-  flex-direction: column;
-  gap: 4px;
+  flex-direction: row;
+  gap: 6px;
   text-align: left;
+  border-radius: 12px;
 }
 
 .word-link-word {
+  font-size: 0.86rem;
   font-weight: 700;
-  line-height: 1.18;
+  line-height: 1.16;
 }
 
 .word-link-levels {
   color: var(--muted);
-  font-size: 0.74rem;
-  line-height: 1.35;
-}
-
-.word-link-chip:hover,
-.family-link:hover,
-.floating-nav-mini:hover,
-.floating-nav-icon:hover,
-.floating-nav-toggle:hover {
-  transform: translateY(-1px);
+  font-size: 0.72rem;
+  line-height: 1.25;
+  white-space: nowrap;
 }
 
 .family-link {
-  min-height: 36px;
-  margin-top: 12px;
-  padding: 0 12px;
+  min-height: 30px;
+  margin-top: 0;
+  padding: 0 10px;
   background: color-mix(in srgb, var(--green) 9%, white 91%);
   border: 1px solid color-mix(in srgb, var(--green) 16%, transparent);
   color: var(--green);
-  width: fit-content;
-  font-size: 0.92rem;
+  width: auto;
+  font-size: 0.84rem;
+  white-space: nowrap;
+  align-self: start;
 }
 
 .page-sibling-nav {
@@ -1083,6 +1187,46 @@ button {
   line-height: 1.2;
 }
 
+@media (min-width: 1280px) {
+  .family-card {
+    grid-template-columns: minmax(220px, 0.9fr) minmax(240px, 1.05fr) minmax(360px, 1.5fr);
+    gap: 10px 14px;
+    align-items: start;
+  }
+
+  .family-card-heading {
+    gap: 8px;
+  }
+
+  .family-link {
+    justify-self: start;
+  }
+
+  .family-meta-list {
+    align-content: start;
+  }
+
+  .family-word-links {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .family-word-label {
+    padding-top: 0;
+  }
+
+  .word-link-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+    gap: 6px;
+  }
+
+  .word-link-chip {
+    width: 100%;
+  }
+}
+
 .reveal {
   animation: rise-in 620ms ease both;
 }
@@ -1114,7 +1258,6 @@ button {
   }
 
   .home-overview-grid,
-  .family-grid,
   .page-sibling-nav {
     grid-template-columns: 1fr;
   }
@@ -1125,8 +1268,22 @@ button {
     column-gap: 10px;
   }
 
-  .family-meta-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .family-card-heading {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .family-link {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+
+  .family-word-links {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .family-word-label {
+    padding-top: 0;
   }
 }
 
@@ -1270,12 +1427,51 @@ button {
     margin-top: 3px;
   }
 
+  .family-card {
+    gap: 8px;
+  }
+
+  .family-card-heading {
+    gap: 8px;
+  }
+
+  .family-mark {
+    min-height: 26px;
+    padding: 0 9px;
+    font-size: 0.74rem;
+  }
+
+  .family-card h2 {
+    font-size: 0.98rem;
+  }
+
+  .family-subtitle {
+    font-size: 0.86rem;
+    -webkit-line-clamp: 1;
+  }
+
   .family-meta-list {
-    grid-template-columns: 1fr;
+    gap: 5px 6px;
+  }
+
+  .family-meta-list span {
+    min-height: 26px;
+    padding: 4px 8px;
+    font-size: 0.76rem;
   }
 
   .word-link-list {
-    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+  }
+
+  .word-link-chip {
+    min-height: 28px;
+    padding: 5px 7px;
+    gap: 5px;
+  }
+
+  .word-link-word {
+    font-size: 0.82rem;
   }
 
   .site-footer-list {

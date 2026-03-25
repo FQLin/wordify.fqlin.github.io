@@ -1,0 +1,6 @@
+﻿{
+  "files.associations": {
+    "site.config.json": "jsonc",
+    "data/*.json": "jsonc"
+  }
+}
