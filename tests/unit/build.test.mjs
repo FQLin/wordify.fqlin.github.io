@@ -1,10 +1,9 @@
-import { JSDOM } from 'jsdom';
+﻿import { JSDOM } from 'jsdom';
 import { describe, expect, it } from 'vitest';
 
 import {
   TEXT,
   buildHomeHeroStats,
-  formatLevelSummary,
   getWordAnchorId,
   renderIndex,
   renderPage,
@@ -50,7 +49,7 @@ describe('build helpers', () => {
     expect(stats[2].note).toContain(String(allLevels.length));
   });
 
-  it('renders homepage family cards in order with expected content', () => {
+  it('renders homepage family cards in order with expected compact content', () => {
     const dom = new JSDOM(renderIndex(pages));
     const document = dom.window.document;
     const heroItems = document.querySelectorAll('.hero-meta-item');
@@ -69,6 +68,7 @@ describe('build helpers', () => {
       const currentPage = pages[pageIndex];
       const wordLinks = Array.from(card.querySelectorAll('.word-link-chip'));
       const metaText = normalizeText(card.querySelector('.family-meta-list')?.textContent || '');
+      const metaItems = card.querySelectorAll('.family-meta-list span');
 
       expect(normalizeText(card.querySelector('.family-mark')?.textContent || '')).toBe(
         currentPage.rootName,
@@ -77,22 +77,36 @@ describe('build helpers', () => {
       expect(normalizeText(card.querySelector('.family-subtitle')?.textContent || '')).toBe(
         currentPage.description || currentPage.rootTitle,
       );
+      expect(metaItems).toHaveLength(2);
       expect(metaText).toContain(currentPage.rootTitle);
       expect(metaText).toContain(currentPage.coreMeaning || TEXT.uncategorized);
-      expect(metaText).toContain(String(currentPage.words.length));
-      expect(metaText).toContain(formatLevelSummary(uniqueLevels(currentPage.words), 3));
+      expect(metaText).not.toContain(TEXT.wordCount);
+      expect(metaText).not.toContain(TEXT.levelsCovered);
       expect(wordLinks).toHaveLength(currentPage.words.length);
 
       wordLinks.forEach((link, wordIndex) => {
         const currentWord = currentPage.words[wordIndex];
         const wordText = String(currentWord.word ?? '').trim();
         const expectedHref = `./${currentPage.slug}.html#${getWordAnchorId(wordText, wordIndex + 1)}`;
-        const expectedLevelSummary = formatLevelSummary(currentWord.levels ?? [], 2);
+        const normalizedLevels = (currentWord.levels ?? [])
+          .map((level) => String(level ?? '').trim())
+          .filter(Boolean);
+        const expectedLevelsText =
+          normalizedLevels.length > 0 ? normalizedLevels.join(' / ') : TEXT.uncategorized;
+        const expectedOrderLabel = `${wordIndex + 1}/${currentPage.words.length}`;
         const linkText = normalizeText(link.textContent || '');
 
         expect(link.getAttribute('href')).toBe(expectedHref);
+        expect(normalizeText(link.querySelector('.word-link-index')?.textContent || '')).toBe(
+          expectedOrderLabel,
+        );
+        expect(normalizeText(link.querySelector('.word-link-word')?.textContent || '')).toBe(wordText);
+        expect(normalizeText(link.querySelector('.word-link-levels')?.textContent || '')).toBe(
+          expectedLevelsText,
+        );
+        expect(linkText).toContain(expectedOrderLabel);
         expect(linkText).toContain(wordText);
-        expect(linkText).toContain(expectedLevelSummary);
+        expect(linkText).toContain(expectedLevelsText);
       });
     });
   });

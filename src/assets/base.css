@@ -173,6 +173,7 @@ button {
 
 .hero-card,
 .info-card,
+.filter-panel,
 .family-card,
 .floating-nav-panel {
   position: relative;
@@ -278,11 +279,7 @@ button {
 }
 
 .page-home .hero-meta-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.page-home .hero-meta-grid .hero-meta-item:last-child {
-  grid-column: 1 / -1;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .hero-meta-item {
@@ -342,6 +339,12 @@ button {
 .info-card,
 .filter-panel,
 .family-card {
+  display: grid;
+  gap: 8px;
+}
+
+.info-card,
+.filter-panel {
   border-radius: var(--radius-lg);
   padding: 20px;
 }
@@ -640,8 +643,8 @@ button {
 }
 
 .flow-block-summary {
-  background: color-mix(in srgb, white 88%, var(--accent) 12%);
-  border-color: color-mix(in srgb, var(--accent) 14%, transparent);
+  background: color-mix(in srgb, white 86%, var(--accent) 14%);
+  border-color: color-mix(in srgb, var(--accent) 12%, transparent);
 }
 
 .pron-item {
@@ -764,8 +767,8 @@ button {
 
 .family-card {
   display: grid;
-  gap: 10px;
-  padding: 12px 14px;
+  gap: 8px;
+  padding: 10px 12px;
 }
 
 .page-home .family-card[role="link"] {
@@ -829,49 +832,49 @@ button {
 }
 
 .family-card::after {
-  width: 148px;
-  height: 148px;
-  opacity: 0.72;
+  width: 132px;
+  height: 132px;
+  opacity: 0.58;
 }
 
 .family-card-heading {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
-  gap: 10px;
+  gap: 8px;
   align-items: start;
 }
 
 .family-headcopy {
   min-width: 0;
   display: grid;
-  gap: 4px;
+  gap: 3px;
 }
 
 .family-mark {
   display: inline-flex;
   align-items: center;
-  min-height: 28px;
-  padding: 0 10px;
+  min-height: 24px;
+  padding: 0 8px;
   border-radius: var(--radius-sm);
   background: color-mix(in srgb, var(--accent) 10%, white 90%);
   color: var(--accent-deep);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
 }
 
 .family-card h2 {
   margin: 0;
-  font-size: 1.08rem;
-  line-height: 1.14;
+  font-size: 1.02rem;
+  line-height: 1.12;
 }
 
 .family-subtitle {
   display: -webkit-box;
   margin: 0;
   color: var(--muted);
-  font-size: 0.91rem;
-  line-height: 1.45;
+  font-size: 0.84rem;
+  line-height: 1.34;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
@@ -880,7 +883,7 @@ button {
 .family-meta-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 8px;
+  gap: 5px 6px;
   margin: 0;
 }
 
@@ -888,81 +891,100 @@ button {
   display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 6px;
-  min-height: 28px;
-  padding: 5px 9px;
+  gap: 5px;
+  min-height: 24px;
+  padding: 4px 8px;
   border-radius: var(--radius-sm);
   background: rgba(255, 255, 255, 0.62);
   border: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
   color: var(--ink);
-  font-size: 0.82rem;
-  line-height: 1.3;
+  font-size: 0.76rem;
+  line-height: 1.24;
 }
 
 .family-meta-list strong {
   color: var(--muted);
   min-width: 0;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
 }
 
 .family-word-links {
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 8px;
+  grid-template-columns: 1fr;
+  gap: 5px;
   align-items: start;
 }
 
 .family-word-label {
-  padding-top: 5px;
-  font-size: 0.76rem;
+  padding-top: 0;
+  font-size: 0.71rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  line-height: 1.1;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .word-link-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(156px, 1fr));
+  gap: 5px;
 }
 
 .word-link-chip {
-  min-height: 30px;
-  padding: 6px 8px;
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 2px 7px;
+  width: 100%;
+  min-height: 0;
+  padding: 5px 7px;
   background: color-mix(in srgb, var(--green) 8%, white 92%);
   border: 1px solid color-mix(in srgb, var(--green) 14%, transparent);
   color: var(--green);
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: row;
-  gap: 6px;
+  align-items: start;
+  justify-content: stretch;
   text-align: left;
-  border-radius: 12px;
+  border-radius: 10px;
+}
+
+.word-link-index {
+  display: inline-flex;
+  grid-column: 1;
+  align-items: center;
+  color: var(--muted);
+  font-size: 0.67rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 
 .word-link-word {
-  font-size: 0.86rem;
+  grid-column: 2;
+  min-width: 0;
+  font-size: 0.83rem;
   font-weight: 700;
   line-height: 1.16;
 }
 
 .word-link-levels {
+  grid-column: 1 / -1;
   color: var(--muted);
-  font-size: 0.72rem;
-  line-height: 1.25;
-  white-space: nowrap;
+  font-size: 0.68rem;
+  line-height: 1.28;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .family-link {
-  min-height: 30px;
+  min-height: 28px;
   margin-top: 0;
-  padding: 0 10px;
+  padding: 0 9px;
   background: color-mix(in srgb, var(--green) 9%, white 91%);
   border: 1px solid color-mix(in srgb, var(--green) 16%, transparent);
   color: var(--green);
   width: auto;
-  font-size: 0.84rem;
+  font-size: 0.8rem;
   white-space: nowrap;
   align-self: start;
 }
@@ -1189,9 +1211,14 @@ button {
 
 @media (min-width: 1280px) {
   .family-card {
-    grid-template-columns: minmax(220px, 0.9fr) minmax(240px, 1.05fr) minmax(360px, 1.5fr);
-    gap: 10px 14px;
+    grid-template-columns: minmax(248px, 0.92fr) minmax(0, 1.4fr);
+    gap: 8px 12px;
     align-items: start;
+  }
+
+  .family-card-heading,
+  .family-meta-list {
+    grid-column: 1;
   }
 
   .family-card-heading {
@@ -1207,19 +1234,17 @@ button {
   }
 
   .family-word-links {
-    grid-template-columns: 1fr;
-    gap: 6px;
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    gap: 5px;
     min-width: 0;
-  }
-
-  .family-word-label {
-    padding-top: 0;
+    align-self: start;
   }
 
   .word-link-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
-    gap: 6px;
+    grid-template-columns: repeat(auto-fit, minmax(142px, 1fr));
+    gap: 5px;
   }
 
   .word-link-chip {
@@ -1465,13 +1490,21 @@ button {
   }
 
   .word-link-chip {
-    min-height: 28px;
-    padding: 5px 7px;
-    gap: 5px;
+    min-height: 0;
+    padding: 4px 6px;
+    gap: 2px 6px;
+  }
+
+  .word-link-index {
+    font-size: 0.64rem;
   }
 
   .word-link-word {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
+  }
+
+  .word-link-levels {
+    font-size: 0.67rem;
   }
 
   .site-footer-list {

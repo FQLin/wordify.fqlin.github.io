@@ -1001,20 +1001,22 @@ function renderPage(page, siblings = {}) {
 }
 
 function renderWordLinks(page) {
+  const totalWords = page.words.length;
+
   return page.words
     .map((word, index) => {
       const wordText = String(word.word ?? '').trim() || `Word ${index + 1}`;
       const targetId = getWordAnchorId(wordText, index + 1);
       const levels = (word.levels ?? []).map((level) => String(level ?? '').trim()).filter(Boolean);
       const fullLevels = levels.length > 0 ? levels.join(' / ') : TEXT.uncategorized;
-      const levelSummary = formatLevelSummary(levels, 2);
 
       return renderTemplate('word-link.njk', {
         slug: escapeHtml(page.slug),
         targetId: escapeHtml(targetId),
         title: escapeHtml(`${wordText} / ${fullLevels}`),
+        wordOrderLabel: escapeHtml(`${index + 1}/${totalWords}`),
         wordText: escapeHtml(wordText),
-        levelSummary: escapeHtml(levelSummary),
+        levelsText: escapeHtml(fullLevels),
       });
     })
     .join('');
@@ -1023,12 +1025,9 @@ function renderWordLinks(page) {
 function renderIndexCard(page) {
   const coreMeaning = page.coreMeaning || TEXT.uncategorized;
   const subtitle = page.description || page.rootTitle;
-  const familyLevels = uniqueLevels(page.words);
   const metaList = [
     `<span><strong>${TEXT.rootForm}</strong>${escapeHtml(page.rootTitle)}</span>`,
     `<span><strong>${TEXT.coreMeaning}</strong>${escapeHtml(coreMeaning)}</span>`,
-    `<span><strong>${TEXT.wordCount}</strong>${page.words.length}</span>`,
-    `<span><strong>${TEXT.levelsCovered}</strong>${escapeHtml(formatLevelSummary(familyLevels, 3))}</span>`,
   ].join('');
 
   return renderTemplate('index-card.njk', {

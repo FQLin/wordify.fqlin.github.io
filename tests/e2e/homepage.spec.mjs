@@ -1,12 +1,6 @@
 ﻿import { expect, test } from '@playwright/test';
 
-import {
-  TEXT,
-  buildHomeHeroStats,
-  formatLevelSummary,
-  getWordAnchorId,
-  uniqueLevels,
-} from '../../scripts/build.mjs';
+import { TEXT, buildHomeHeroStats, getWordAnchorId, uniqueLevels } from '../../scripts/build.mjs';
 import { loadAllPages, normalizeText } from '../helpers/pages.mjs';
 
 const topicPages = loadAllPages();
@@ -50,8 +44,9 @@ test.describe('homepage rendering', () => {
     expect(secondHeroBox).not.toBeNull();
     expect(thirdHeroBox).not.toBeNull();
     expect(Math.abs(firstHeroBox.y - secondHeroBox.y)).toBeLessThan(10);
-    expect(thirdHeroBox.y).toBeGreaterThan(firstHeroBox.y + firstHeroBox.height - 1);
-    expect(thirdHeroBox.width).toBeGreaterThan(firstHeroBox.width + 20);
+    expect(Math.abs(firstHeroBox.y - thirdHeroBox.y)).toBeLessThan(10);
+    expect(Math.abs(firstHeroBox.width - secondHeroBox.width)).toBeLessThan(8);
+    expect(Math.abs(secondHeroBox.width - thirdHeroBox.width)).toBeLessThan(8);
 
     const familyCards = page.locator('.family-card');
     await expect(familyCards).toHaveCount(topicPages.length);
@@ -63,38 +58,45 @@ test.describe('homepage rendering', () => {
     for (const [pageIndex, topicPage] of topicPages.entries()) {
       const card = familyCards.nth(pageIndex);
       const metaText = normalizeText(await card.locator('.family-meta-list').innerText());
+      const metaItems = card.locator('.family-meta-list span');
       const wordLinks = card.locator('.word-link-chip');
-      const expectedFamilyLevels = formatLevelSummary(uniqueLevels(topicPage.words), 3);
 
       await expect(card.locator('.family-mark')).toHaveText(topicPage.rootName);
       await expect(card.locator('h2')).toHaveText(topicPage.title);
       await expect(card.locator('.family-subtitle')).toContainText(
         topicPage.description || topicPage.rootTitle,
       );
+      await expect(metaItems).toHaveCount(2);
 
       expect(metaText).toContain(topicPage.rootTitle);
       expect(metaText).toContain(topicPage.coreMeaning || TEXT.uncategorized);
-      expect(metaText).toContain(String(topicPage.words.length));
-      expect(metaText).toContain(expectedFamilyLevels);
+      expect(metaText).not.toContain(TEXT.wordCount);
+      expect(metaText).not.toContain(TEXT.levelsCovered);
 
       await expect(wordLinks).toHaveCount(topicPage.words.length);
       for (const [wordIndex, word] of topicPage.words.entries()) {
         const wordLink = wordLinks.nth(wordIndex);
         const wordText = String(word.word ?? '').trim();
-        const levelSummary = formatLevelSummary(word.levels ?? [], 2);
+        const normalizedLevels = (word.levels ?? [])
+          .map((level) => String(level ?? '').trim())
+          .filter(Boolean);
+        const expectedLevelsText =
+          normalizedLevels.length > 0 ? normalizedLevels.join(' / ') : TEXT.uncategorized;
+        const expectedOrderLabel = `${wordIndex + 1}/${topicPage.words.length}`;
 
         await expect(wordLink).toHaveAttribute(
           'href',
           `./${topicPage.slug}.html#${getWordAnchorId(wordText, wordIndex + 1)}`,
         );
-        await expect(wordLink).toContainText(wordText);
-        await expect(wordLink.locator('.word-link-levels')).toHaveText(levelSummary);
+        await expect(wordLink.locator('.word-link-index')).toHaveText(expectedOrderLabel);
+        await expect(wordLink.locator('.word-link-word')).toHaveText(wordText);
+        await expect(wordLink.locator('.word-link-levels')).toHaveText(expectedLevelsText);
       }
     }
 
     await expect(page.locator('.hero-meta-item').first()).toHaveCSS('display', 'grid');
     await expect(page.locator('.family-meta-list span').first()).toHaveCSS('display', 'flex');
-    await expect(page.locator('.word-link-chip').first()).toHaveCSS('flex-direction', 'row');
+    await expect(page.locator('.word-link-chip').first()).toHaveCSS('display', 'grid');
     await expect(page.locator('.word-link-list').first()).toHaveCSS('display', 'grid');
 
     const firstDirectoryLinks = familyCards.first().locator('.word-link-chip');

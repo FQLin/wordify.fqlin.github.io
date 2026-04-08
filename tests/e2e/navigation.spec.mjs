@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+﻿import { expect, test } from '@playwright/test';
 
 import { getWordAnchorId } from '../../scripts/build.mjs';
 import { loadAllPages } from '../helpers/pages.mjs';
@@ -49,6 +49,41 @@ test.describe('topic navigation', () => {
     await expectCurrentWord(page, switchedWordId, switchedWord);
   });
 
+  test('keeps topic page card styling intact', async ({ page }) => {
+    await page.goto(`/${firstPage.slug}.html`);
+
+    const filterPanel = page.locator('.filter-panel');
+    const firstWordCard = page.locator('.word-card').first();
+
+    const filterPanelStyle = await filterPanel.evaluate((element) => {
+      const style = window.getComputedStyle(element);
+      return {
+        backgroundColor: style.backgroundColor,
+        boxShadow: style.boxShadow,
+        borderRadius: style.borderRadius,
+      };
+    });
+
+    const wordCardStyle = await firstWordCard.evaluate((element) => {
+      const style = window.getComputedStyle(element);
+      return {
+        backgroundColor: style.backgroundColor,
+        boxShadow: style.boxShadow,
+        borderRadius: style.borderRadius,
+      };
+    });
+
+    expect(filterPanelStyle.backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
+    expect(filterPanelStyle.boxShadow).not.toBe('none');
+    expect(filterPanelStyle.borderRadius).not.toBe('0px');
+
+    expect(wordCardStyle.backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
+    expect(wordCardStyle.boxShadow).not.toBe('none');
+    expect(wordCardStyle.borderRadius).not.toBe('0px');
+
+    await expect(page.locator('.filter-chip').first()).toHaveCSS('display', 'flex');
+    await expect(page.locator('.word-card-header').first()).toHaveCSS('display', 'block');
+  });
   test('supports word search and previous/next topic navigation', async ({ page }) => {
     await page.goto(`/${firstPage.slug}.html`);
 
